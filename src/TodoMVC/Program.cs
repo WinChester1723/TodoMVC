@@ -1,7 +1,17 @@
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using TodoMVC.Data;
+
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddDbContext<TodoMVCContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("TodoMVCContext") 
+    ?? throw new InvalidOperationException("Connection string 'TodoMVCContext' not found.")));
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+
 
 var app = builder.Build();
 
